@@ -13,7 +13,7 @@ class Pages extends Admin_Controller
         $this->load->view('panel/pages/home', $this->data);
     }
 
-    /* Sayfa Güncelleme Sayfası */
+    /* Edit page */
     public function edit($id)
     {
 

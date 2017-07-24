@@ -14,7 +14,6 @@ class Users extends ORM
     {
         self::$fields = array(
             'id' => ORM::field('auto[10]'),
-            'tc_kimlik' => ORM::field('int[11]'),
             'firstname' => ORM::field('char[255]'),
             'lastname' => ORM::field('char[255]'),
             'email' => ORM::field('char[255]'),
@@ -29,7 +28,7 @@ class Users extends ORM
         $this->ts_fields = array('updated_at', '[created_at]');
     }
 
-    /* şifreleme */
+    /* crypting */
     public static function cryptTo($value)
     {
 

@@ -3,6 +3,7 @@
 class Home extends MY_Controller
 {
 
+    /* Homepage */
     public function index()
     {
 
@@ -11,7 +12,7 @@ class Home extends MY_Controller
         $this->load->view('default/home', $this->data);
     }
 
-    /* Yönetim Paneli Giriş Yaptırma */
+    /* Login for admin panel */
     public function adminLogin()
     {
 
@@ -39,7 +40,7 @@ class Home extends MY_Controller
                 redirect(base_url('panel'));
             } else {
 
-                $this->data['errorMessage'] = 'Bilgileriniz Hatalı. Lütfen Tekrar Deneyin';
+                $this->data['errorMessage'] = 'Wrong credentials';
             }
 
             $this->load->view('panel/login', $this->data);
@@ -49,14 +50,14 @@ class Home extends MY_Controller
         }
     }
 
-    /* giriş yaptırma */
+    /* login */
     public function login()
     {
 
         $obj = new stdClass();
-        $obj->title = 'Giriş';
-        $obj->keywords = 'kombi, serviscilik,kursu, avrupa, birliği, proje';
-        $obj->description = 'Kombi servisciliği kursu giriş sayfası';
+        $obj->title = 'Login';
+        $obj->keywords = 'keywords';
+        $obj->description = 'description';
         $this->data['page_data'] = $obj;
 
         if ($this->input->post()) {
@@ -70,7 +71,6 @@ class Home extends MY_Controller
 
                 $array = array(
                     'id' => $user->id,
-                    'tc_kimlik' => $user->tc_kimlik,
                     'firstname' => $user->firstname,
                     'lastname' => $user->lastname,
                     'email' => $user->email,
@@ -84,7 +84,7 @@ class Home extends MY_Controller
                 redirect(base_url());
             } else {
 
-                $this->data['errorMessage'] = 'Bilgileriniz Hatalı. Lütfen Tekrar Deneyin';
+                $this->data['errorMessage'] = 'Wrong credentials';
             }
 
             $this->load->view('default/login', $this->data);
@@ -94,21 +94,20 @@ class Home extends MY_Controller
         }
     }
 
-    /* Kayıt Olma*/
+    /* Register */
     public function signUp()
     {
 
         $obj = new stdClass();
-        $obj->title = 'Kaydol';
-        $obj->keywords = 'kombi, serviscilik,kursu, avrupa, birliği, proje';
-        $obj->description = 'Kombi servisciliği kursu kayıt olma sayfası';
+        $obj->title = 'Register';
+        $obj->keywords = 'keywords';
+        $obj->description = 'description';
         $this->data['page_data'] = $obj;
 
         if ($this->input->post()) {
 
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('tc_kimlik', 'TC Kimlik Numarası', 'required|xss_clean|is_unique[users.tc_kimlik]');
             $this->form_validation->set_rules('firstname', 'İsim', 'required|xss_clean');
             $this->form_validation->set_rules('lastname', 'Soyisim', 'required|xss_clean');
             $this->form_validation->set_rules('email', 'Email Adresi', 'required|xss_clean|valid_email|is_unique[users.email]');
@@ -121,10 +120,7 @@ class Home extends MY_Controller
                 $this->data['errorMessage'] = validation_errors();
             } else {
 
-                //$password = Model\Users::cryptTo($this->input->post('password'));
-
                 $array = array(
-                    'tc_kimlik' => $this->input->post('tc_kimlik'),
                     'firstname' => $this->input->post('firstname'),
                     'lastname' => $this->input->post('lastname'),
                     'email' => $this->input->post('email'),
@@ -138,11 +134,11 @@ class Home extends MY_Controller
 
                 if ($user->save()) {
 
-                    $this->session->set_flashdata('success', 'Üye Kaydınız Başarıyla Alındı.');
+                    $this->session->set_flashdata('success', 'Registered successfully.');
                     redirect(base_url('kaydol'));
                 } else {
 
-                    $this->data['errorMessage'] = 'Üye kaydınız alınırken bir hata ile karşılaşıldı';
+                    $this->data['errorMessage'] = 'An error occured';
                 }
             }
             $this->load->view('default/signup', $this->data);
@@ -152,7 +148,7 @@ class Home extends MY_Controller
         }
     }
 
-    /* Çıkış Yaptırma*/
+    /* Logout */
     public function logout()
     {
 
@@ -160,7 +156,7 @@ class Home extends MY_Controller
         redirect(base_url());
     }
 
-    /* İletişim formu gönderme */
+    /* Post contact form */
     public function postContact()
     {
 
@@ -168,12 +164,12 @@ class Home extends MY_Controller
 
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('firstname', 'Adınız', 'required|xss_clean');
-            $this->form_validation->set_rules('lastname', 'Soyadınız', 'required|xss_clean');
+            $this->form_validation->set_rules('firstname', 'Name', 'required|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Lastname', 'required|xss_clean');
             $this->form_validation->set_rules('email', 'Email', 'required|xss_clean|valid_email');
-            $this->form_validation->set_rules('phone', 'Telefon', 'required|xss_clean');
-            $this->form_validation->set_rules('topic', 'Konu', 'required|xss_clean');
-            $this->form_validation->set_rules('message', 'Mesaj', 'required|xss_clean');
+            $this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
+            $this->form_validation->set_rules('topic', 'Topic', 'required|xss_clean');
+            $this->form_validation->set_rules('message', 'Message', 'required|xss_clean');
 
             $array = array(
                 'firstname' => $this->input->post('firstname'),
@@ -197,56 +193,12 @@ class Home extends MY_Controller
 
                 if ($message->save()) {
 
-                    $this->session->set_flashdata('success', 'Mesajınız Başarıyla Gönderildi.');
+                    $this->session->set_flashdata('success', 'Message sended');
                     redirect(base_url('iletisim'));
                 } else {
 
-                    $this->session->set_flashdata('error', 'Mesajınız Gönderilemedi.');
+                    $this->session->set_flashdata('error', 'An error occurred.');
                     redirect(base_url('iletisim'));
-                }
-            }
-        }
-    }
-
-    /* İletişim formu gönderme */
-    public function postRegister()
-    {
-
-        if ($this->input->post()) {
-
-            $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('group', 'Grup', 'required|xss_clean');
-            $this->form_validation->set_rules('experience', 'Tecrübe', 'required|xss_clean');
-            $this->form_validation->set_rules('description', 'Açıklama', 'required|xss_clean');
-            $this->form_validation->set_rules('graduate', 'Mezuniyet Durumu', 'required|xss_clean');
-
-            if ($this->form_validation->run() == FALSE) {
-
-                $this->session->set_flashdata('error', validation_errors());
-                redirect(base_url('on-kayit'));
-
-            } else {
-
-                $array = array(
-                    'user_id' => $this->session->userdata('id'),
-                    'group_id' => $this->input->post('group'),
-                    'experience' => $this->input->post('experience'),
-                    'description' => $this->input->post('description'),
-                    'graduate' => $this->input->post('graduate'),
-                    'created_at' => date('Y-m-d H:i:s')
-                );
-
-                $register = Model\Registers::make($array);
-
-                if ($register->save()) {
-
-                    $this->session->set_flashdata('success', 'Ön Kayıt Başvurunuz Başarıyla Gönderildi.');
-                    redirect(base_url('profilim'));
-                } else {
-
-                    $this->session->set_flashdata('error', 'Başvurunuz Gönderilemedi.');
-                    redirect(base_url('on-kayit'));
                 }
             }
         }
