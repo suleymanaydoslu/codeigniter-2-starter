@@ -20,12 +20,6 @@
                 <form class="form-horizontal" id="default" method="post" enctype="multipart/form-data">
                   <input type="hidden" name="csrf_base" value="{$csrf_token}">
                   <div class="form-group">
-                      <label class="col-lg-2 control-label">Tc Kimlik No: </label>
-                      <div class="col-lg-10">
-                          <input type="text" name="tc_kimlik" class="form-control" value="{if isset($input_old)} {$input_old['tc_kimlik']} {else} {set_value('tc_kimlik')} {/if}" required>
-                      </div>
-                  </div>
-                  <div class="form-group">
                       <label class="col-lg-2 control-label">Ad: </label>
                       <div class="col-lg-10">
                           <input type="text" name="firstname" class="form-control" value="{if isset($input_old)} {$input_old['firstname']} {else} {set_value('firstname')} {/if}" required>
@@ -79,9 +73,6 @@
                 </form>
               </div>
             </section>
-            <div class="alert alert-warning">
-              <i class="icon icon-warning-sign"></i> <strong>Lütfen varolan bir T.C. Kimlik numarası veya email adresi ile kullanıcı eklemeye çalışmayınız. Kullanıcı tipi seçiminiz çok önemlidir. Yanlışlıkla bir üyeye yönetici yetkisi vermek durumuyla karşı karşıya kalabilirsiniz.</strong>
-            </div>
           </div>
         </div>
       </section>

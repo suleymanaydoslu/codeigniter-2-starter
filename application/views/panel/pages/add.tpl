@@ -54,7 +54,7 @@
                     </div>
                 </div>     
 
-                <input type="submit" class="finish btn btn-danger" value="Düzenle"/>
+                <input type="submit" class="finish btn btn-danger" value="EKLE"/>
               </form>
             </div>
           </section>

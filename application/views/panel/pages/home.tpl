@@ -64,7 +64,7 @@
               </thead>
               <tbody>
                 <tr class="text-center">
-                  <td colspan="4" class="alert alert-danger"> KAYIT YOK </td>
+                  <td colspan="5" class="alert alert-danger"> KAYIT YOK </td>
                 </tr>
               </tbody>
             </table>

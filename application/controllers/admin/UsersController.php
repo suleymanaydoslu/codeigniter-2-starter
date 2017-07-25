@@ -1,14 +1,16 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Users extends Admin_Controller
+use Model\Users;
+
+class UsersController extends Admin_Controller
 {
 
     /* All users */
     public function all()
     {
 
-        $this->data['users'] = Model\Users::all();
-        $this->data['count'] = Model\Users::count_all();
+        $this->data['users'] = Users::all();
+        $this->data['count'] = Users::count_all();
 
         $this->load->view('panel/users/all', $this->data);
     }
@@ -16,12 +18,13 @@ class Users extends Admin_Controller
     /* Show user */
     public function show($id)
     {
+        $control = $this->data['user'] = Users::find($id);
 
-        $kontrol = $this->data['user'] = Model\Users::find($id);
+        if ($control) {
 
-        if ($kontrol) {
             $this->load->view('panel/users/show', $this->data);
         } else {
+
             show_404();
         }
     }
@@ -29,8 +32,7 @@ class Users extends Admin_Controller
     /* Edit user */
     public function edit($id)
     {
-
-        $user = $this->data['user'] = Model\Users::find($id);
+        $user = $this->data['user'] = Users::find($id);
 
         if ($user) {
 
@@ -52,7 +54,7 @@ class Users extends Admin_Controller
                     /* Email Sorgulaması */
                     if ($this->input->post('email') != $user->email) {
 
-                        $check = Model\Users::make()->where('email', $this->input->post('email'))->first();
+                        $check = Users::make()->where('email', $this->input->post('email'))->first();
 
                         if (count($check) > 0) {
 
@@ -64,7 +66,7 @@ class Users extends Admin_Controller
                     /* Şifre değiştirilmek istenirse  */
                     if ($this->input->post('pass') && $this->input->post('pass_again')) {
 
-                        $user->password = Model\Users::cryptTo($this->input->post('pass'));
+                        $user->password = Users::cryptTo($this->input->post('pass'));
                     } else if ($this->input->post('pass') && $this->input->post('pass_again') == '') {
 
                         $this->session->set_flashdata('error', 'Please fill password again field!.');
@@ -151,7 +153,7 @@ class Users extends Admin_Controller
                     'phone' => $this->input->post('phone'),
                     'email' => $this->input->post('email'),
                     'type' => $this->input->post('type'),
-                    'password' => Model\Users::cryptTo($this->input->post('password'))
+                    'password' => Users::cryptTo($this->input->post('password'))
                 );
 
                 if ($_FILES['avatar']['error'] != 4) {
@@ -178,7 +180,7 @@ class Users extends Admin_Controller
                     }
                 }
 
-                $user = Model\Users::make($array);
+                $user = Users::make($array);
 
                 if ($user->save(TRUE)) {
 
@@ -199,7 +201,7 @@ class Users extends Admin_Controller
     public function delete($id)
     {
 
-        $user = Model\Users::find($id);
+        $user = Users::find($id);
 
         if ($user) {
 

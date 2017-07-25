@@ -21,12 +21,6 @@
                     <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
                       <input type="hidden" name="csrf_base" value="{$csrf_token}">
                         <div class="form-group">
-                            <label  class="col-lg-2 control-label">T.C. Kimlik No:</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" name="tc_kimlik" value="{$user->tc_kimlik}">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label  class="col-lg-2 control-label">Adı:</label>
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" name="firstname" value="{$user->firstname}">
@@ -84,9 +78,6 @@
                     </form>
                 </div>
             </section>
-            <div class="alert alert-warning">
-              <i class="icon icon-warning-sign"></i> <strong>Lütfen varolan bir T.C. Kimlik numarası veya email adresi girmeye çalışmayınız. Kullanıcı tipi seçiminiz çok önemlidir. Yanlışlıkla bir üyeye yönetici yetkisi vermek durumuyla karşı karşıya kalabilirsiniz.</strong>
-            </div>
           </aside>
         </div>
       </div>

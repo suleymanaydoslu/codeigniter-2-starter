@@ -1,6 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pages extends MY_Controller
+use Model\Pages;
+
+class PagesController extends MY_Controller
 {
 
     /* get page */
@@ -10,7 +12,7 @@ class Pages extends MY_Controller
         $segment = $this->uri->uri_string();
 
         $where = array('slug' => $segment);
-        $data = $this->data['page_data'] = Model\Pages::make()->where($where)->first();
+        $data = $this->data['page_data'] = Pages::make()->where($where)->first();
 
         if ($data) {
 

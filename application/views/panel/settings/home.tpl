@@ -32,9 +32,9 @@
               </tr>
               </thead>
               <tbody>
-              {foreach $settings key=k item=setting}
+              {foreach from=$settings key=k item=setting}
                 <tr>
-                  <td>{$k+1}</td>
+                  <td width="50">{$k+1}</td>
                   <td>{$setting->title}</td>
                   <td width="70">
                     <a class="btn btn-primary btn-xs" href="{base_url('panel/setting/edit')}/{$setting->id}" data-toggle="tooltip" data-placement="bottom" title="Düzenle"><i class="icon-pencil"></i></a>

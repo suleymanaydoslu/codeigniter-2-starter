@@ -1,14 +1,16 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pages extends Admin_Controller
+use Model\Pages;
+
+class PagesController extends Admin_Controller
 {
 
     /* Getting all the pages */
     public function all()
     {
 
-        $this->data['pages'] = Model\Pages::all();
-        $this->data['count'] = Model\Pages::count_all();
+        $this->data['pages'] = Pages::all();
+        $this->data['count'] = Pages::count_all();
 
         $this->load->view('panel/pages/home', $this->data);
     }
@@ -17,7 +19,7 @@ class Pages extends Admin_Controller
     public function edit($id)
     {
 
-        $page = $this->data['page'] = Model\Pages::find($id);
+        $page = $this->data['page'] = Pages::find($id);
 
         if ($page) {
 
@@ -79,7 +81,7 @@ class Pages extends Admin_Controller
             } else {
 
                 $slug = url_title($this->input->post('title'), 'dash', TRUE);
-                $slug_check = Model\Pages::make()->where('slug', $slug)->first();
+                $slug_check = Pages::make()->where('slug', $slug)->first();
 
                 if ($slug_check > 0) {
 
@@ -96,7 +98,7 @@ class Pages extends Admin_Controller
                     'view' => 'default/pages/basic.tpl'
                 );
 
-                $page = Model\Pages::make($array);
+                $page = Pages::make($array);
 
                 if ($page->save(TRUE)) {
 
@@ -118,7 +120,7 @@ class Pages extends Admin_Controller
     public function delete($id)
     {
 
-        $page = Model\Pages::find($id);
+        $page = Pages::find($id);
 
         if ($page) {
 

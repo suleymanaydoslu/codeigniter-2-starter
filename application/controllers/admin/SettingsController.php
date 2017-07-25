@@ -1,14 +1,16 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Settings extends Admin_Controller
+use Model\Settings;
+
+class SettingsController extends Admin_Controller
 {
 
     /* Fetching all settings */
     public function all()
     {
 
-        $this->data['settings'] = Model\Settings::all();
-        $this->data['count'] = Model\Settings::count_all();
+        $this->data['settings'] = Settings::all();
+        $this->data['count'] = Settings::count_all();
 
         $this->load->view('panel/settings/home', $this->data);
     }
@@ -17,7 +19,7 @@ class Settings extends Admin_Controller
     public function edit($id)
     {
 
-        $setting = $this->data['setting'] = Model\Settings::find($id);
+        $setting = $this->data['setting'] = Settings::find($id);
 
         if ($setting) {
 

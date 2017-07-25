@@ -1,14 +1,16 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Contacts extends Admin_Controller
+use Model\Contact;
+
+class ContactsController extends Admin_Controller
 {
 
     /* Fetching all messages */
     public function home()
     {
 
-        $this->data['messages'] = Model\Contact::all();
-        $this->data['count'] = Model\Contact::count_all();
+        $this->data['messages'] = Contact::all();
+        $this->data['count'] = Contact::count_all();
 
         $this->load->view('panel/contact/home', $this->data);
     }
@@ -17,7 +19,7 @@ class Contacts extends Admin_Controller
     public function show($id)
     {
 
-        $message = $this->data['message'] = Model\Contact::find($id);
+        $message = $this->data['message'] = Contact::find($id);
 
         if ($message) {
 
@@ -28,22 +30,22 @@ class Contacts extends Admin_Controller
         }
     }
 
-    /* Deleting nessage */
+    /* Deleting message */
     public function delete($id)
     {
 
-        $message = Model\Contact::find($id);
+        $message = Contact::find($id);
 
         if ($message) {
 
             if ($message->delete()) {
 
                 $this->session->set_flashdata('success', 'Message deleted successfully.');
-                redirect(base_url('panel/contacts'));
+                redirect(base_url('panel/messages'));
             } else {
 
-                $this->session->set_flashdata('error', 'An error occured while deleting the message.');
-                redirect(base_url('panel/contacts'));
+                $this->session->set_flashdata('error', 'An error occurred while deleting the message.');
+                redirect(base_url('panel/messages'));
             }
         } else {
 

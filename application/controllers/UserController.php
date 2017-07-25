@@ -1,6 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class User extends User_Controller
+use Model\Users;
+
+class UserController extends User_Controller
 {
 
     /* Profile Edit*/
@@ -13,7 +15,7 @@ class User extends User_Controller
         $obj->description = 'description';
         $this->data['page_data'] = $obj;
 
-        $user = $this->data['user'] = Model\Users::find($this->session->userdata('id'));
+        $user = $this->data['user'] = Users::find($this->session->userdata('id'));
 
         if ($this->input->post()) {
 
@@ -32,7 +34,7 @@ class User extends User_Controller
                 /* Email Sorgulaması */
                 if ($this->input->post('email') != $user->email) {
 
-                    $check = Model\Users::make()->where('email', $this->input->post('email'))->first();
+                    $check = Users::make()->where('email', $this->input->post('email'))->first();
 
                     if (count($check) > 0) {
 
@@ -49,7 +51,7 @@ class User extends User_Controller
 
                 if ($this->input->post('password')) {
 
-                    $user->password = Model\Users::cryptTo($this->input->post('password'));
+                    $user->password = Users::cryptTo($this->input->post('password'));
                 }
 
                 if ($user->save()) {

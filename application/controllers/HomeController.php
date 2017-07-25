@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home extends MY_Controller
+class HomeController extends MY_Controller
 {
 
     /* Homepage */

@@ -21,5 +21,7 @@ class Pages extends ORM
             'view' => ORM::field('char[255]'),
             'content' => ORM::field('string')
         );
+
+        $this->ts_fields = array('updated_at', '[created_at]');
     }
 }
